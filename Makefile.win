@@ -1,0 +1,39 @@
+# Project: fat_mingw
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = fat_mingw_private.res
+OBJ  = main.o cmd.o fatvol.o $(RES)
+LINKOBJ  = main.o cmd.o fatvol.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/Lib"  
+INCS =  -I"include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/" 
+BIN  = fat_mingw.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before fat_mingw.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "fat_mingw.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+cmd.o: cmd.cpp
+	$(CPP) -c cmd.cpp -o cmd.o $(CXXFLAGS)
+
+fatvol.o: fatvol.cpp
+	$(CPP) -c fatvol.cpp -o fatvol.o $(CXXFLAGS)
+
+fat_mingw_private.res: fat_mingw_private.rc 
+	$(WINDRES) -i fat_mingw_private.rc --input-format=rc -o fat_mingw_private.res -O coff 
